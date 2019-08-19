@@ -2,6 +2,7 @@ package com.monkesoft.oura.controller;
 
 
 import com.github.pagehelper.Page;
+import com.monkesoft.oura.OURADataResponse;
 import com.monkesoft.oura.OURAPageResponse;
 import com.monkesoft.oura.OURAResponse;
 import com.monkesoft.oura.entity.UserInfo;
@@ -35,11 +36,11 @@ public class UserController {
     }
 
     @GetMapping(path = "/{userId}")
-    public OURAResponse<UserInfo> getUserById(@PathVariable String userId) {
-        OURAResponse<UserInfo> response = new OURAResponse<UserInfo>();
+    public OURADataResponse<UserInfo> getUserById(@PathVariable String userId) {
+        OURADataResponse<UserInfo> response = new OURADataResponse<UserInfo>();
         try {
-            response.success()
-                    .setData(userService.getUserById(userId));
+            response.setData(userService.getUserById(userId))
+                    .success();
         } catch (Exception e) {
             response.fail().setDesc(e.getMessage());
         }
