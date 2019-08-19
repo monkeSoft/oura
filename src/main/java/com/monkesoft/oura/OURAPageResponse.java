@@ -1,6 +1,6 @@
 package com.monkesoft.oura;
 
-public class OURAPageResponse<T> extends OURAResponse<T> {
+public class OURAPageResponse<T> extends OURADataResponse<T> {
 
     private long rowStart;
     private long rowEnd;
