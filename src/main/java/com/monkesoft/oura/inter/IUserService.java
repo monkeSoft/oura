@@ -4,6 +4,8 @@ import com.github.pagehelper.IPage;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.monkesoft.oura.entity.UserInfo;
+import com.monkesoft.oura.entity.UserOrgVO;
+import com.monkesoft.oura.entity.UserRoleVO;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.util.StringUtils;
@@ -20,9 +22,9 @@ public interface IUserService {
 
     public UserInfo getUserById(String userId);
 
-    public Page getUsers(int pageNum, int pageSize);
+    public Page<UserInfo> getUsers(int pageNum, int pageSize);
 
-    public Page getUsersOfOrg(String orgId,int pageNum,int pageSize);
+    public Page<UserOrgVO> getUsersOfOrg(String orgId, int pageNum, int pageSize);
 
-    public Page getUsersOfRole(String roleId,int pageNum,int pageSize);
+    public Page<UserRoleVO> getUsersOfRole(String roleId, int pageNum, int pageSize);
 }

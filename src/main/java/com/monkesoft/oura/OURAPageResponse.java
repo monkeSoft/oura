@@ -1,5 +1,7 @@
 package com.monkesoft.oura;
 
+import com.github.pagehelper.Page;
+
 public class OURAPageResponse<T> extends OURADataResponse<T> {
 
     private long rowStart;
@@ -9,6 +11,13 @@ public class OURAPageResponse<T> extends OURADataResponse<T> {
     private int pageNum;
     private int pageSize;
     private int pageTotal;
+
+    public OURAPageResponse<T> buildPage(Page page){
+        this.setRowTotal(page.getTotal()).setRowStart(page.getStartRow()).setRowEnd(page.getEndRow())
+                .setPageTotal(page.getPages()).setPageNum(page.getPageNum()).setPageSize(page.getPageSize());
+
+        return this;
+    }
 
     public long getRowStart() {
         return rowStart;

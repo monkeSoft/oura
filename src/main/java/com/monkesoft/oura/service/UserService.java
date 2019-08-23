@@ -2,6 +2,8 @@ package com.monkesoft.oura.service;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.monkesoft.oura.entity.UserOrgVO;
+import com.monkesoft.oura.entity.UserRoleVO;
 import com.monkesoft.oura.inter.IUserService;
 import com.monkesoft.oura.mybatis.mapper.UserMapper;
 import com.monkesoft.oura.entity.UserInfo;
@@ -70,8 +72,7 @@ public class UserService implements IUserService {
      * @return
      */
     @Cacheable(value = "users", key = "'user_all_'+#pageNum+'_'+#pageSize", sync = true)
-    public Page getUsers(int pageNum, int pageSize) {
-        System.out.println("查询所有。。");
+    public Page<UserInfo> getUsers(int pageNum, int pageSize) {
         pageNum = pageNum < 0 ? 0 : pageNum;
         pageSize = pageSize <= 0 ? 10 : pageSize;
         Page<UserInfo> page = PageHelper.startPage(pageNum, pageSize);
@@ -79,12 +80,17 @@ public class UserService implements IUserService {
         return page;
     }
 
-
-    public Page getUsersOfOrg(String orgId, int pageNum, int pageSize) {
-        return null;
+    @Cacheable(value = "users", key = "'user_org_'+#orgId+'_'+#pageNum+'_'+#pageSize", sync = true)
+    public Page<UserOrgVO> getUsersOfOrg(String orgId, int pageNum, int pageSize) {
+        Page<UserOrgVO> page = PageHelper.startPage(pageNum, pageSize);
+        userDao.getUsersOfOrg(orgId);
+        return page;
     }
 
-    public Page getUsersOfRole(String roleId, int pageNum, int pageSize) {
-        return null;
+    @Cacheable(value = "users", key = "'user_role_'+#roleId+'_'+#pageNum+'_'+#pageSize", sync = true)
+    public Page<UserRoleVO> getUsersOfRole(String roleId, int pageNum, int pageSize) {
+        Page<UserRoleVO> page = PageHelper.startPage(pageNum, pageSize);
+        userDao.getUsersOfRole(roleId);
+        return page;
     }
 }

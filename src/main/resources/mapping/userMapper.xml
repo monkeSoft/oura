@@ -28,4 +28,12 @@
         select * from user
     </select>
 
+    <select id="getUsersOfOrg" resultType="com.monkesoft.oura.entity.UserOrgVO" >
+        select u.*, ou.orgid,ou.jobid from user u, org_user ou where u.id=ou.userid and ou.orgid= #{orgId}
+    </select>
+
+    <select id="getUsersOfRole" resultType="com.monkesoft.oura.entity.UserRoleVO" >
+        select u.*, ru.roleid from user u, role_user ru where u.id=ru.userid and ru.roleid= #{roleId}
+    </select>
+
 </mapper>
