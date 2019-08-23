@@ -1,4 +1,4 @@
-package com.monkesoft.oura.mapper;
+package com.monkesoft.oura.mybatis.mapper;
 
 import com.monkesoft.oura.entity.UserInfo;
 import org.springframework.stereotype.Repository;

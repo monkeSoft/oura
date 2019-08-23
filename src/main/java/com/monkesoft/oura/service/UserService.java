@@ -3,8 +3,10 @@ package com.monkesoft.oura.service;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.monkesoft.oura.inter.IUserService;
-import com.monkesoft.oura.mapper.UserMapper;
+import com.monkesoft.oura.mybatis.mapper.UserMapper;
 import com.monkesoft.oura.entity.UserInfo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
@@ -12,11 +14,12 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import java.util.List;
 
 @Service
 @Cacheable(value = "users")
 public class UserService implements IUserService {
+
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     UserMapper userDao;

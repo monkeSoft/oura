@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 
 @SpringBootApplication
-@MapperScan("com.monkesoft.oura.mapper")
+@MapperScan("com.monkesoft.oura.mybatis.mapper")
 @EnableCaching
 public class OuraApplication {
 

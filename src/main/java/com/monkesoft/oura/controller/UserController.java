@@ -7,6 +7,8 @@ import com.monkesoft.oura.OURAPageResponse;
 import com.monkesoft.oura.OURAResponse;
 import com.monkesoft.oura.entity.UserInfo;
 import com.monkesoft.oura.inter.IUserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,6 +17,7 @@ import java.util.List;
 @RestController
 @RequestMapping(path = "/api-rest/user")
 public class UserController {
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     IUserService userService;
@@ -42,6 +45,7 @@ public class UserController {
             response.setData(userService.getUserById(userId))
                     .success();
         } catch (Exception e) {
+            logger.error(e.getMessage(),e);
             response.fail().setDesc(e.getMessage());
         }
         return response;
