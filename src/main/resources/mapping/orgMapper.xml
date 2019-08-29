@@ -24,13 +24,16 @@
         select * from organization where id = #{id}
     </select>
 
-<!--    <select id="getUsers" resultType="com.monkesoft.oura.entity.UserInfo" >-->
-<!--        select * from user-->
-<!--    </select>-->
+    <select id="getOrgs" resultType="com.monkesoft.oura.entity.OrganizationInfo" >
+        select * from organization
+    </select>
+    <select id="getSubOrgs" resultType="com.monkesoft.oura.entity.OrganizationInfo" >
+        select * from organization where parentId = #{parentId}
+    </select>
 
-<!--    <select id="getUsersOfOrg" resultType="com.monkesoft.oura.entity.UserOrgVO" >-->
-<!--        select u.*, ou.orgid,ou.jobid from user u, org_user ou where u.id=ou.userid and ou.orgid= #{orgId}-->
-<!--    </select>-->
+    <select id="getOrgsOfUser" resultType="com.monkesoft.oura.entity.OrgUserVO" >
+        select o.*, ou.userid,ou.jobid from organization o, org_user ou where o.id=ou.orgid and ou.userid= #{userId}
+    </select>
 
 <!--    <select id="getUsersOfRole" resultType="com.monkesoft.oura.entity.UserRoleVO" >-->
 <!--        select u.*, ru.roleid from user u, role_user ru where u.id=ru.userid and ru.roleid= #{roleId}-->

@@ -11,7 +11,7 @@
 	<groupId>com.monkesoft</groupId>
 	<artifactId>oura</artifactId>
 	<version>1.0.0</version>
-	<packaging>war</packaging>
+	<packaging>${packaging.type}</packaging>
 	<name>oura</name>
 	<description>Demo project for Spring Boot</description>
 
@@ -72,6 +72,32 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+
+	<profiles>
+		<profile>
+			<id>jar</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<packaging.type>jar</packaging.type>
+			</properties>
+			<dependencies>
+				<dependency>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-tomcat</artifactId>
+				</dependency>
+			</dependencies>
+		</profile>
+
+		<profile>
+			<id>war</id>
+			<properties>
+				<packaging.type>war</packaging.type>
+			</properties>
+
+		</profile>
+	</profiles>
 
 	<build>
 		<plugins>

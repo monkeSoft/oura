@@ -10,11 +10,11 @@ import java.util.List;
  */
 public interface IOrganizationService {
 
-    public void insertUser(OrganizationInfo orgInfo);
+    public void insertOrg(OrganizationInfo orgInfo);
 
-    public void updateUser(OrganizationInfo orgInfo);
+    public void updateOrg(OrganizationInfo orgInfo);
 
-    public void deleteUser(String orgId);
+    public void deleteOrg(String orgId);
 
     public OrganizationInfo getOrgById(String id);
 
