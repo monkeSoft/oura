@@ -1,6 +1,7 @@
 package com.monkesoft.oura.mybatis.mapper;
 
 import com.github.pagehelper.Page;
+import com.monkesoft.oura.entity.OrgUserVO;
 import com.monkesoft.oura.entity.OrganizationInfo;
 import org.springframework.stereotype.Repository;
 
@@ -12,14 +13,17 @@ public interface OrganizationMapper {
 
     void updateOrg(OrganizationInfo org);
 
+    void updateOrgStatus(int status,String orgId);
+
     void deleteOrg(String orgId);
 
     OrganizationInfo getOrgById(String orgId);
 
     Page<OrganizationInfo> getOrgs();
+
     Page<OrganizationInfo> getSubOrgs(String parentId) ;
 
-    List<OrganizationInfo> getOrgsOfUser(String userId);
+    List<OrgUserVO> getOrgsOfUser(String userId);
 
 
 }

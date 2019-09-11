@@ -1,6 +1,6 @@
 package com.monkesoft.oura.mybatis.interceptor;
 
-import com.monkesoft.oura.mybatis.IDBProcess;
+import com.monkesoft.oura.data.IDataStoreProcess;
 import org.apache.ibatis.executor.resultset.ResultSetHandler;
 import org.apache.ibatis.plugin.*;
 import org.slf4j.Logger;
@@ -13,7 +13,6 @@ import org.springframework.util.CollectionUtils;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Objects;
-import java.util.Properties;
 
 /**
  * Mybatis 返回值加解密拦截器
@@ -24,14 +23,14 @@ import java.util.Properties;
 @Intercepts({
         @Signature(type = ResultSetHandler.class, method = "handleResultSets", args={Statement.class})
 })
-@ConditionalOnProperty(value = "domain.decrypt", havingValue = "true")
+@ConditionalOnProperty(value = "oura.crypt", havingValue = "true")
 @Component
 public class ResultInterceptor implements Interceptor {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
-    private IDBProcess dbProcess;
+    private IDataStoreProcess dbProcess;
 
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
@@ -44,22 +43,18 @@ public class ResultInterceptor implements Interceptor {
 
         if (result instanceof ArrayList) {
             ArrayList resultList = (ArrayList) result;
-//            if (CollectionUtils.isEmpty(resultList) && needToDecrypt(resultList.get(0))){
-                for (int i = 0; i < resultList.size(); i++) {
-//                    encryptDecrypt.decrypt(resultList.get(i));
-                    logger.info("211");
+            //先判断列表中第一个是否需要处理，节省遍历时间。
+            if (CollectionUtils.isEmpty(resultList) || !dbProcess.needProcess(resultList.get(0))){
+                return result;
+            }
 
-                    dbProcess.afterFromDB(resultList.get(i));
-                }
-//            }
-            logger.info("222");
+            for (int i = 0; i < resultList.size(); i++) {
+                dbProcess.afterFromDB(resultList.get(i));
+            }
         }else {
-//            if (needToDecrypt(result)){
-//                encryptDecrypt.decrypt(result);
-//            }
-            logger.info("123232");
-
-            dbProcess.afterFromDB(result);
+            if (dbProcess.needProcess(result)){
+                dbProcess.afterFromDB(result);
+            }
         }
         return result;
     }

@@ -12,7 +12,7 @@
 
 
     <update id="updateUser" parameterType="com.monkesoft.oura.entity.UserInfo">
-        update user set name=#{name},password=#{password},email=#{email},phone=#{phone},sex=#{sex},age=#{age},address=#{address}
+        update user set name=#{name},password=#{password},email=#{email},phone=#{phone},sex=#{sex},age=#{age},address=#{address},status=#{status}
             where id=#{id}
     </update>
 
@@ -29,7 +29,7 @@
     </select>
 
     <select id="getUsersOfOrg" resultType="com.monkesoft.oura.entity.UserOrgVO" >
-        select u.*, ou.orgid,ou.jobid from user u, org_user ou where u.id=ou.userid and ou.orgid= #{orgId}
+        select u.*, ou.orgid,ou.jobid,j.name as jobname from user u, org_user ou, job j where u.id=ou.userid and ou.jobid=j.id and ou.orgid= #{orgId}
     </select>
 
     <select id="getUsersOfRole" resultType="com.monkesoft.oura.entity.UserRoleVO" >

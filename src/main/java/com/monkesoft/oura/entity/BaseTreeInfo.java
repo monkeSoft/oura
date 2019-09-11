@@ -10,6 +10,11 @@ public class BaseTreeInfo extends BaseInfo {
      */
     private String parentId;
 
+    /**
+     * 排序序号
+     */
+    private int level;
+
 
     public BaseTreeInfo() {
         super();
@@ -25,5 +30,13 @@ public class BaseTreeInfo extends BaseInfo {
     public BaseTreeInfo setParentId(String parentId) {
         this.parentId = parentId;
         return this;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
     }
 }

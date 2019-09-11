@@ -1,6 +1,7 @@
 package com.monkesoft.oura.inter;
 
 import com.github.pagehelper.Page;
+import com.monkesoft.oura.entity.OrgUserVO;
 import com.monkesoft.oura.entity.OrganizationInfo;
 
 import java.util.List;
@@ -14,15 +15,15 @@ public interface IOrganizationService {
 
     public void updateOrg(OrganizationInfo orgInfo);
 
+    public void updateOrgStatus(int status, String orgId);
+
     public void deleteOrg(String orgId);
 
     public OrganizationInfo getOrgById(String id);
 
-    public List<OrganizationInfo> getSubOrgs(String parentId);
+    public Page<OrganizationInfo> getSubOrgs(String parentId,int pageNum,int pageSize);
 
-    public Page<OrganizationInfo> getSubOrgsByPage(String parentId,int pageNum,int pageSize);
-
-    public List<OrganizationInfo> getOrgsOfUser(String userId);
+    public List<OrgUserVO> getOrgsOfUser(String userId);
 
     public Page<OrganizationInfo> getOrgs(int pageNum,int pageSize);
 

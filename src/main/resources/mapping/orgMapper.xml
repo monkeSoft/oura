@@ -5,34 +5,38 @@
 <mapper namespace="com.monkesoft.oura.mybatis.mapper.OrganizationMapper">
 
 
-<!--    <insert id="insertUser" parameterType="com.monkesoft.oura.entity.UserInfo">-->
-<!--        insert into user(id,name,password,email,phone,sex,age,address)-->
-<!--         values(#{id},#{name},#{password},#{email},#{phone},#{sex},#{age},#{address})-->
-<!--    </insert>-->
+    <insert id="insertOrg" parameterType="com.monkesoft.oura.entity.OrganizationInfo">
+        insert into organization(id,name,parentId,level,desc)
+         values(#{id},#{name},#{parentId},#{level},#{desc})
+    </insert>
 
 
-<!--    <update id="updateUser" parameterType="com.monkesoft.oura.entity.UserInfo">-->
-<!--        update user set name=#{name},password=#{password},email=#{email},phone=#{phone},sex=#{sex},age=#{age},address=#{address}-->
-<!--            where id=#{id}-->
-<!--    </update>-->
+    <update id="updateOrg" parameterType="com.monkesoft.oura.entity.OrganizationInfo">
+        update organization set name=#{name},parentId=#{parentId},level=#{level},status=#{status},desc=#{desc}
+            where id=#{id}
+    </update>
 
-<!--    <delete id="deleteUser" parameterType="java.lang.String">-->
-<!--        delete from user where id=#{id}-->
-<!--    </delete>-->
+    <update id="updateOrgStatus">
+        update organization set status=#{status} where id=#{id}
+    </update>
+
+    <delete id="deleteOrg" parameterType="java.lang.String">
+        delete from organization where id=#{id}
+    </delete>
 
     <select id="getOrgById" parameterType="java.lang.String" resultType="com.monkesoft.oura.entity.OrganizationInfo" >
         select * from organization where id = #{id}
     </select>
 
     <select id="getOrgs" resultType="com.monkesoft.oura.entity.OrganizationInfo" >
-        select * from organization
+        select * from organization order by id
     </select>
     <select id="getSubOrgs" resultType="com.monkesoft.oura.entity.OrganizationInfo" >
-        select * from organization where parentId = #{parentId}
+        select * from organization where parentId = #{parentId} order by level,id
     </select>
 
     <select id="getOrgsOfUser" resultType="com.monkesoft.oura.entity.OrgUserVO" >
-        select o.*, ou.userid,ou.jobid from organization o, org_user ou where o.id=ou.orgid and ou.userid= #{userId}
+        select o.*, ou.userid,ou.jobid,j.name as jobName from organization o, org_user ou, job j where o.id=ou.orgid and ou.jobid=j.id and ou.userid= #{userId}
     </select>
 
 <!--    <select id="getUsersOfRole" resultType="com.monkesoft.oura.entity.UserRoleVO" >-->

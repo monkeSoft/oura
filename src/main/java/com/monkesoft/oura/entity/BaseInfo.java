@@ -1,8 +1,6 @@
 package com.monkesoft.oura.entity;
 
-import com.fasterxml.jackson.annotation.JsonView;
-import com.fasterxml.jackson.databind.ser.Serializers;
-import com.monkesoft.oura.jsonview.SimpleView;
+import com.monkesoft.oura.annotation.DataStoreProcess;
 
 import java.io.Serializable;
 
@@ -14,9 +12,10 @@ public class BaseInfo implements Serializable {
     public static final int STATUS_ON = 1;
     public static final int STATUS_OFF = 0;
 
-    @JsonView(SimpleView.class)
+
     private String id;
-    @JsonView(SimpleView.class)
+
+    @DataStoreProcess
     private String name;
 
     private int status = STATUS_ON;

@@ -2,6 +2,7 @@ package com.monkesoft.oura.service;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.monkesoft.oura.entity.OrgUserVO;
 import com.monkesoft.oura.entity.OrganizationInfo;
 import com.monkesoft.oura.inter.IOrganizationService;
 import com.monkesoft.oura.mybatis.mapper.OrganizationMapper;
@@ -38,6 +39,13 @@ public class OrganizationService implements IOrganizationService {
 
     @Override
     @CacheEvict()
+    public void updateOrgStatus(int status, String orgId) {
+        Assert.hasText(orgId,"组织ID不能为空");
+        orgMapper.updateOrgStatus(status,orgId);
+    }
+
+    @Override
+    @CacheEvict()
     public void deleteOrg(String orgId) {
         Assert.hasText(orgId,"组织ID不能为空");
         orgMapper.deleteOrg(orgId);
@@ -51,17 +59,8 @@ public class OrganizationService implements IOrganizationService {
     }
 
     @Override
-    @Cacheable(key = "'org_subs_'+#parentId")
-    public List<OrganizationInfo> getSubOrgs(String parentId) {
-        if (!StringUtils.hasText(parentId))
-            parentId = "-1";//根节点默认为-1
-
-        return orgMapper.getSubOrgs(parentId);
-    }
-
-    @Override
     @Cacheable(key = "'org_subs_'+#parentId+'_'+#pageNum+'_'+#pageSize")
-    public Page<OrganizationInfo> getSubOrgsByPage(String parentId, int pageNum, int pageSize) {
+    public Page<OrganizationInfo> getSubOrgs(String parentId, int pageNum, int pageSize) {
         if (!StringUtils.hasText(parentId))
             parentId = "-1";//根节点默认为-1
 
@@ -72,7 +71,7 @@ public class OrganizationService implements IOrganizationService {
 
     @Override
     @Cacheable(key = "'org_user_'+#userId")
-    public List<OrganizationInfo> getOrgsOfUser(String userId) {
+    public List<OrgUserVO> getOrgsOfUser(String userId) {
         return orgMapper.getOrgsOfUser(userId);
     }
 

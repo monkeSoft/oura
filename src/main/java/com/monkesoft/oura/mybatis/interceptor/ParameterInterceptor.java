@@ -1,13 +1,12 @@
 package com.monkesoft.oura.mybatis.interceptor;
 
-import com.monkesoft.oura.mybatis.IDBProcess;
+import com.monkesoft.oura.data.IDataStoreProcess;
 import org.apache.ibatis.executor.parameter.ParameterHandler;
 import org.apache.ibatis.plugin.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Field;
@@ -18,13 +17,13 @@ import java.util.Properties;
 @Intercepts({
         @Signature(type = ParameterHandler.class, method = "setParameters", args = PreparedStatement.class),
 })
-@ConditionalOnProperty(value = "domain.encrypt", havingValue = "true")
+@ConditionalOnProperty(value = "oura.crypt", havingValue = "true")
 @Component
 public class ParameterInterceptor implements Interceptor {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
-    private IDBProcess dbProcess;
+    private IDataStoreProcess dbProcess;
 
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
