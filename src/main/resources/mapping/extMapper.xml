@@ -2,12 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.monkesoft.oura.mybatis.mapper.OrganizationMapper">
+<mapper namespace="com.monkesoft.oura.mybatis.mapper.ExtMapper">
 
-
-    <insert id="insertOrg" parameterType="com.monkesoft.oura.entity.OrganizationInfo">
-        insert into organization(id,name,parentId,level,desc)
-         values(#{id},#{name},#{parentId},#{level},#{desc})
+    <insert id="insertExt" parameterType="com.monkesoft.oura.entity.ExtInfo">
+        insert into oura_ext(group,objId,extFileId,value)
+         values(#{group},#{objId},#{extFileId},#{value})
     </insert>
 
 

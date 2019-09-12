@@ -8,9 +8,7 @@ import com.monkesoft.oura.OURAResponse;
 import com.monkesoft.oura.entity.OrgUserVO;
 import com.monkesoft.oura.entity.OrganizationInfo;
 import com.monkesoft.oura.inter.IOrganizationService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,6 +55,12 @@ public class OrganizationController {
      * @return
      */
     @GetMapping(path = {"/subs/{parentId}","/subs/{parentId}/"})
+    @ApiOperation(value="获取子组织列表", notes="根据父组织ID获取其子组织详细列表")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "parentId", value = "父ID", paramType = "path", required = true),
+            @ApiImplicitParam(name = "pageNum", value = "页码", paramType = "query", defaultValue = "1", required = true),
+            @ApiImplicitParam(name = "pageSize", value = "每页数量,0表示全部", paramType = "query", defaultValue = "10",required = true)
+    })
     public OURAPageResponse<List<OrganizationInfo>> getSubOrgs(@PathVariable String parentId,
                                                                      @RequestParam(required = false, defaultValue = "1") int pageNum,
                                                                      @RequestParam(required = false, defaultValue = "10") int pageSize) {
@@ -72,6 +76,8 @@ public class OrganizationController {
     }
 
     @GetMapping(path = {"/user/{userId}","/user/{userId}/"})
+    @ApiOperation(value="获取用户所属组织列表", notes="根据用户ID获取其所属组织详细列表")
+    @ApiImplicitParam(name = "userId", value = "用户ID", paramType = "path", required = true)
     public OURADataResponse<List<OrgUserVO>> getOrgsOfUser(@PathVariable String userId) {
         OURADataResponse<List<OrgUserVO>> response = new OURADataResponse<>();
         try {
