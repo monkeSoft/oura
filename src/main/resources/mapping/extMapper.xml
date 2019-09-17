@@ -5,38 +5,26 @@
 <mapper namespace="com.monkesoft.oura.mybatis.mapper.ExtMapper">
 
     <insert id="insertExt" parameterType="com.monkesoft.oura.entity.ExtInfo">
-        insert into oura_ext(group,objId,extFileId,value)
-         values(#{group},#{objId},#{extFileId},#{value})
+        insert into oura_ext(`group`,objId,extFieldId,value)
+         values(#{group},#{objId},#{extFieldId},#{value})
     </insert>
 
 
-    <update id="updateOrg" parameterType="com.monkesoft.oura.entity.OrganizationInfo">
-        update organization set name=#{name},parentId=#{parentId},level=#{level},status=#{status},desc=#{desc}
-            where id=#{id}
+    <update id="updateExt" parameterType="com.monkesoft.oura.entity.ExtInfo">
+        update oura_ext set value=#{value}
+            where `group`=#{group} and objId=#{objId} and extFieldId=#{extFieldId}
     </update>
 
-    <update id="updateOrgStatus">
-        update organization set status=#{status} where id=#{id}
-    </update>
-
-    <delete id="deleteOrg" parameterType="java.lang.String">
-        delete from organization where id=#{id}
+    <delete id="deleteExt">
+        delete from oura_ext where `group`=#{group} and objId=#{objId}
     </delete>
 
-    <select id="getOrgById" parameterType="java.lang.String" resultType="com.monkesoft.oura.entity.OrganizationInfo" >
-        select * from organization where id = #{id}
-    </select>
+    <delete id="deleteSingleExt">
+        delete from oura_ext where `group`=#{group} and objId=#{objId} and extFieldId=#{extFieldId}
+    </delete>
 
-    <select id="getOrgs" resultType="com.monkesoft.oura.entity.OrganizationInfo" >
-        select * from organization order by id
+    <select id="getExtOfObj" resultType="com.monkesoft.oura.entity.ExtInfo" >
+        select * from oura_ext where `group`=#{group} and objId=#{objId}
     </select>
-    <select id="getSubOrgs" resultType="com.monkesoft.oura.entity.OrganizationInfo" >
-        select * from organization where parentId = #{parentId} order by level,id
-    </select>
-
-    <select id="getOrgsOfUser" resultType="com.monkesoft.oura.entity.OrgUserVO" >
-        select o.*, ou.userid,ou.jobid,j.name as jobName from organization o, org_user ou, job j where o.id=ou.orgid and ou.jobid=j.id and ou.userid= #{userId}
-    </select>
-
 
 </mapper>

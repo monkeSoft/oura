@@ -62,6 +62,32 @@ public class UserController {
         return response;
     }
 
+    @PutMapping(path = {"/", ""})
+    public OURAResponse updateUser(@RequestBody UserInfo user) {
+        OURAResponse response = new OURAResponse();
+        try {
+            userService.updateUser(user);
+            response.success();
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            response.fail().setDesc(e.getMessage());
+        }
+        return response;
+    }
+
+    @DeleteMapping(path = {"/{userId}","/{userId}/"})
+    public OURAResponse deleteOrg(@PathVariable String userId) {
+        OURAResponse response = new OURAResponse();
+        try {
+            userService.deleteUser(userId);
+            response.success();
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            response.fail().setDesc(e.getMessage());
+        }
+        return response;
+    }
+
 
     @GetMapping(path = {"/org/{orgId}", "/org/{orgId}/"})
     public OURAPageResponse<List<UserOrgVO>> getUsersOfOrg(@PathVariable String orgId,

@@ -3,10 +3,11 @@ package com.monkesoft.oura.entity;
 import lombok.Data;
 
 /**
- * 扩展信息 group+objId+extFileId 唯一
+ * 扩展信息 group+objId+extFieldId 唯一
  */
 @Data
 public class ExtInfo {
+
     //分组类别
     private String group;
 
@@ -14,16 +15,16 @@ public class ExtInfo {
     private String objId;
 
     //扩展字段ID
-    private String extFileId;
+    private String extFieldId;
 
     //值
     private String value;
 
     public ExtInfo(){};
-    public ExtInfo(String group,String objId,String extFileId,String value){
+    public ExtInfo(String group,String objId,String extFieldId,String value){
         this.group = group;
         this.objId = objId;
-        this.extFileId = extFileId;
+        this.extFieldId = extFieldId;
         this.value = value;
     };
 

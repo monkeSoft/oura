@@ -6,37 +6,37 @@
 
 
     <insert id="insertOrg" parameterType="com.monkesoft.oura.entity.OrganizationInfo">
-        insert into organization(id,name,parentId,level,desc)
+        insert into oura_organization(id,name,parentId,level,`desc`)
          values(#{id},#{name},#{parentId},#{level},#{desc})
     </insert>
 
 
     <update id="updateOrg" parameterType="com.monkesoft.oura.entity.OrganizationInfo">
-        update organization set name=#{name},parentId=#{parentId},level=#{level},status=#{status},desc=#{desc}
+        update oura_organization set name=#{name},parentId=#{parentId},level=#{level},status=#{status},`desc`=#{desc}
             where id=#{id}
     </update>
 
     <update id="updateOrgStatus">
-        update organization set status=#{status} where id=#{id}
+        update oura_organization set status=#{status} where id=#{id}
     </update>
 
     <delete id="deleteOrg" parameterType="java.lang.String">
-        delete from organization where id=#{id}
+        delete from oura_organization where id=#{id}
     </delete>
 
     <select id="getOrgById" parameterType="java.lang.String" resultType="com.monkesoft.oura.entity.OrganizationInfo" >
-        select * from organization where id = #{id}
+        select * from oura_organization where id = #{id}
     </select>
 
     <select id="getOrgs" resultType="com.monkesoft.oura.entity.OrganizationInfo" >
-        select * from organization order by id
+        select * from oura_organization order by id
     </select>
     <select id="getSubOrgs" resultType="com.monkesoft.oura.entity.OrganizationInfo" >
-        select * from organization where parentId = #{parentId} order by level,id
+        select * from oura_organization where parentId = #{parentId} order by level,id
     </select>
 
     <select id="getOrgsOfUser" resultType="com.monkesoft.oura.entity.OrgUserVO" >
-        select o.*, ou.userid,ou.jobid,j.name as jobName from organization o, org_user ou, job j where o.id=ou.orgid and ou.jobid=j.id and ou.userid= #{userId}
+        select o.*, ou.userid,ou.jobid,j.name as jobName from oura_organization o, oura_org_user ou, oura_job j where o.id=ou.orgid and ou.jobid=j.id and ou.userid= #{userId}
     </select>
 
 

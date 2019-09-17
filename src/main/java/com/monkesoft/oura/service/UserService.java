@@ -35,11 +35,20 @@ public class UserService implements IUserService {
     }
 
     @CacheEvict()
+    @Override
     public void updateUser(UserInfo userInfo) {
         Assert.notNull(userInfo,"用户对象不能为空");
         userDao.updateUser(userInfo);
     }
 
+    @Override
+    @CacheEvict()
+    public void updateUserStatus(String userId) {
+        Assert.notNull(userId,"用户ID不能为空");
+        userDao.updateUserStatus(userId);
+    }
+
+    @Override
     @CacheEvict()
     public void deleteUser(String userId) {
         Assert.hasText(userId,"用户ID不能为空");

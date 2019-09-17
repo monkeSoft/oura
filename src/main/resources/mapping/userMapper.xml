@@ -6,34 +6,38 @@
 
 
     <insert id="insertUser" parameterType="com.monkesoft.oura.entity.UserInfo">
-        insert into user(id,name,password,email,phone,sex,age,address)
+        insert into oura_user(id,name,password,email,phone,sex,age,address)
          values(#{id},#{name},#{password},#{email},#{phone},#{sex},#{age},#{address})
     </insert>
 
 
     <update id="updateUser" parameterType="com.monkesoft.oura.entity.UserInfo">
-        update user set name=#{name},password=#{password},email=#{email},phone=#{phone},sex=#{sex},age=#{age},address=#{address},status=#{status}
+        update oura_user set name=#{name},password=#{password},email=#{email},phone=#{phone},sex=#{sex},age=#{age},address=#{address},status=#{status}
             where id=#{id}
     </update>
 
+    <update id="updateUserStatus">
+        update oura_user set status=#{status} where id=#{id}
+    </update>
+
     <delete id="deleteUser" parameterType="java.lang.String">
-        delete from user where id=#{id}
+        delete from oura_user where id=#{id}
     </delete>
 
     <select id="getUserById" parameterType="java.lang.String" resultType="com.monkesoft.oura.entity.UserInfo" >
-        select * from user where id = #{id}
+        select * from oura_user where id = #{id}
     </select>
 
     <select id="getUsers" resultType="com.monkesoft.oura.entity.UserInfo" >
-        select * from user
+        select * from oura_user
     </select>
 
     <select id="getUsersOfOrg" resultType="com.monkesoft.oura.entity.UserOrgVO" >
-        select u.*, ou.orgid,ou.jobid,j.name as jobname from user u, org_user ou, job j where u.id=ou.userid and ou.jobid=j.id and ou.orgid= #{orgId}
+        select u.*, ou.orgid,ou.jobid,j.name as jobname from oura_user u, oura_org_user ou, oura_job j where u.id=ou.userid and ou.jobid=j.id and ou.orgid= #{orgId}
     </select>
 
     <select id="getUsersOfRole" resultType="com.monkesoft.oura.entity.UserRoleVO" >
-        select u.*, ru.roleid from user u, role_user ru where u.id=ru.userid and ru.roleid= #{roleId}
+        select u.*, ru.roleid from oura_user u, oura_role_user ru where u.id=ru.userid and ru.roleid= #{roleId}
     </select>
 
 </mapper>

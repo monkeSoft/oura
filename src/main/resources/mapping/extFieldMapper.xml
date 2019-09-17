@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.monkesoft.oura.mybatis.mapper.ExtFieldMapper">
+
+    <insert id="insertExtField" parameterType="com.monkesoft.oura.entity.ExtFieldInfo">
+        insert into oura_extfield(id,name,`group`,defaultValue,type,data,nullable,`unique`)
+         values(#{id},#{name},#{group},#{defaultValue},#{type},#{data},#{nullable},#{unique})
+    </insert>
+
+
+    <update id="updateExtField" parameterType="com.monkesoft.oura.entity.ExtFieldInfo">
+        update oura_extfield set name=#{name},defaultValue=#{defaultValue},type=#{type},data=#{data},nullable=#{nullable},`unique`=#{unique}
+            where `group`=#{group} and id=#{id}
+    </update>
+
+    <delete id="deleteExtField">
+        delete from oura_extfield where `group`=#{group} and id=#{extFieldId}
+    </delete>
+
+    <select id="getExtFieldsByGroup" resultType="com.monkesoft.oura.entity.ExtFieldInfo" >
+        select * from oura_extfield where `group`=#{group}
+    </select>
+
+</mapper>

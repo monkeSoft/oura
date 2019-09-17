@@ -12,11 +12,15 @@ import org.springframework.util.StringUtils;
 
 import java.util.List;
 
+/**
+ * 用户服务接口
+ */
 public interface IUserService {
 
     public void insertUser(UserInfo userInfo);
 
     public void updateUser(UserInfo userInfo);
+    public void updateUserStatus(String userId);
 
     public void deleteUser(String userId);
 

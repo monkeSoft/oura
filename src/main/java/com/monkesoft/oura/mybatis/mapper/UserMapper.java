@@ -13,6 +13,7 @@ public interface UserMapper {
     void insertUser(UserInfo user);
 
     void updateUser(UserInfo user);
+    void updateUserStatus(String userId);
 
     void deleteUser(String userId);
 

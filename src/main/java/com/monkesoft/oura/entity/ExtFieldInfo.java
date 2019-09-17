@@ -22,7 +22,7 @@ public class ExtFieldInfo extends BaseInfo {
     public static final String TYPE_DATETIME = "datetime";//弹出框
 
 
-    //所属分组，如人员信息的扩展字段，group=user
+    //所属分组，如人员信息的扩展字段:group=user
     private String group;
 
     //默认值
