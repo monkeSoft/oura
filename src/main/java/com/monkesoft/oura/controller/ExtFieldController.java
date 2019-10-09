@@ -62,7 +62,7 @@ public class ExtFieldController {
     }
 
     @DeleteMapping(path = {"/{group}/{extFieldId}", "/{group}/{extFieldId}/"})
-    public OURAResponse updateExtField(@PathVariable String group, @PathVariable String extFieldId) {
+    public OURAResponse deleteExtField(@PathVariable String group, @PathVariable String extFieldId) {
         OURAResponse response = new OURAResponse();
         try {
             extFieldService.deleteExtField(group,extFieldId);

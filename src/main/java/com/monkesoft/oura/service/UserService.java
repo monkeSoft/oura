@@ -2,6 +2,7 @@ package com.monkesoft.oura.service;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.monkesoft.oura.entity.ExtInfo;
 import com.monkesoft.oura.entity.UserOrgVO;
 import com.monkesoft.oura.entity.UserRoleVO;
 import com.monkesoft.oura.inter.IUserService;
@@ -15,8 +16,11 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
+
+import java.util.List;
 
 
 @Service
@@ -28,17 +32,25 @@ public class UserService implements IUserService {
     @Autowired
     UserMapper userDao;
 
+    @Autowired
+    ExtService extService;
+
+    @Override
     @CacheEvict()
+    @Transactional
     public void insertUser(UserInfo userInfo) {
         Assert.notNull(userInfo,"用户对象不能为空");
         userDao.insertUser(userInfo);
+        extService.insertExt(UserInfo.EXT_GROUP,userInfo.getId(),userInfo.getExt());
     }
 
     @CacheEvict()
     @Override
+    @Transactional
     public void updateUser(UserInfo userInfo) {
         Assert.notNull(userInfo,"用户对象不能为空");
         userDao.updateUser(userInfo);
+        extService.updateExt(UserInfo.EXT_GROUP,userInfo.getId(),userInfo.getExt());
     }
 
     @Override
@@ -50,9 +62,11 @@ public class UserService implements IUserService {
 
     @Override
     @CacheEvict()
+    @Transactional
     public void deleteUser(String userId) {
         Assert.hasText(userId,"用户ID不能为空");
         userDao.deleteUser(userId);
+        extService.deleteExt(UserInfo.EXT_GROUP,userId);
     }
 
     /**
@@ -64,7 +78,13 @@ public class UserService implements IUserService {
     @Cacheable(key = "'user_'+#userId")
     public UserInfo getUserById(String userId) {
         Assert.hasText(userId,"用户ID不能为空");
-        return userDao.getUserById(userId);
+        UserInfo userInfo = userDao.getUserById(userId);
+        if (userInfo != null) {
+            List<ExtInfo> extList = extService.getExtOfObj(UserInfo.EXT_GROUP,userId);
+            for(ExtInfo ext : extList)
+                userInfo.addExt(ext.getExtFieldId(),ext.getValue());
+        }
+        return userInfo;
     }
 
     /**

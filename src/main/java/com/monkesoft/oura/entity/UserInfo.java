@@ -11,6 +11,9 @@ public class UserInfo extends BaseInfo {
     public static final int STATUS_LOCK = 2;
     public static final int STATUS_OFF = 0;
 
+    public final static String EXT_GROUP="user";
+
+
     private int age;
     private int sex;
     private String email;
