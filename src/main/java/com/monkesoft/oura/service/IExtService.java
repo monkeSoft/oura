@@ -1,4 +1,4 @@
-package com.monkesoft.oura.inter;
+package com.monkesoft.oura.service;
 
 import com.monkesoft.oura.entity.ExtInfo;
 

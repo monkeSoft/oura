@@ -1,7 +1,7 @@
-package com.monkesoft.oura.service;
+package com.monkesoft.oura.service.impl;
 
 import com.monkesoft.oura.entity.ExtFieldInfo;
-import com.monkesoft.oura.inter.IExtFieldService;
+import com.monkesoft.oura.service.IExtFieldService;
 import com.monkesoft.oura.mybatis.mapper.ExtFieldMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

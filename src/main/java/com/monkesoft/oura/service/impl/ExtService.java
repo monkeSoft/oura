@@ -1,7 +1,7 @@
-package com.monkesoft.oura.service;
+package com.monkesoft.oura.service.impl;
 
 import com.monkesoft.oura.entity.ExtInfo;
-import com.monkesoft.oura.inter.IExtService;
+import com.monkesoft.oura.service.IExtService;
 import com.monkesoft.oura.mybatis.mapper.ExtMapper;
 import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.SqlSession;

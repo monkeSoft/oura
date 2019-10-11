@@ -1,4 +1,4 @@
-package com.monkesoft.oura.inter;
+package com.monkesoft.oura.service;
 
 import com.github.pagehelper.Page;
 import com.monkesoft.oura.entity.OrgUserVO;
@@ -18,6 +18,8 @@ public interface IOrganizationService {
     public void updateOrgStatus(int status, String orgId);
 
     public void deleteOrg(String orgId);
+
+    public void addUsersToOrg(String orgId,String... userIds);
 
     public OrganizationInfo getOrgById(String id);
 

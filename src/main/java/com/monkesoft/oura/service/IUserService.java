@@ -1,4 +1,4 @@
-package com.monkesoft.oura.inter;
+package com.monkesoft.oura.service;
 
 import com.github.pagehelper.IPage;
 import com.github.pagehelper.Page;

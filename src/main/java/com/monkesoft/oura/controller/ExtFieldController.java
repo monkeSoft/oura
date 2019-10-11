@@ -3,7 +3,7 @@ package com.monkesoft.oura.controller;
 import com.monkesoft.oura.OURADataResponse;
 import com.monkesoft.oura.OURAResponse;
 import com.monkesoft.oura.entity.ExtFieldInfo;
-import com.monkesoft.oura.inter.IExtFieldService;
+import com.monkesoft.oura.service.IExtFieldService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;

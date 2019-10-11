@@ -1,12 +1,11 @@
-package com.monkesoft.oura.service;
+package com.monkesoft.oura.service.impl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.monkesoft.oura.entity.ExtInfo;
 import com.monkesoft.oura.entity.OrgUserVO;
 import com.monkesoft.oura.entity.OrganizationInfo;
-import com.monkesoft.oura.inter.IOrganizationService;
-import com.monkesoft.oura.mybatis.mapper.ExtMapper;
+import com.monkesoft.oura.service.IOrganizationService;
 import com.monkesoft.oura.mybatis.mapper.OrganizationMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
@@ -18,7 +17,6 @@ import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
-import java.util.Map;
 
 @Service
 @CacheConfig(cacheNames = "oura")
@@ -65,6 +63,13 @@ public class OrganizationService implements IOrganizationService {
     }
 
     @Override
+    public void addUsersToOrg(String orgId, String... userIds) {
+        Assert.hasText(orgId,"组织ID不能为空");
+        Assert.notNull(userIds,"人员ID列表不能为空");
+
+    }
+
+    @Override
     @Cacheable(key = "'org_'+#id")
     public OrganizationInfo getOrgById(String id) {
         Assert.hasText(id,"组织ID不能为空");
@@ -93,6 +98,8 @@ public class OrganizationService implements IOrganizationService {
     public List<OrgUserVO> getOrgsOfUser(String userId) {
         return orgMapper.getOrgsOfUser(userId);
     }
+
+
 
     @Override
     @Cacheable(key = "'org_all_'+#pageNum+'_'+#pageSize", sync = true)

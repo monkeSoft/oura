@@ -24,6 +24,11 @@
         delete from oura_organization where id=#{id}
     </delete>
 
+    <insert id="addUsersToOrg">
+        insert into oura_organization(id,name,parentId,level,`desc`)
+         values(#{id},#{name},#{parentId},#{level},#{desc})
+    </insert>
+
     <select id="getOrgById" parameterType="java.lang.String" resultType="com.monkesoft.oura.entity.OrganizationInfo" >
         select * from oura_organization where id = #{id}
     </select>

@@ -7,7 +7,7 @@ import com.monkesoft.oura.OURAPageResponse;
 import com.monkesoft.oura.OURAResponse;
 import com.monkesoft.oura.entity.OrgUserVO;
 import com.monkesoft.oura.entity.OrganizationInfo;
-import com.monkesoft.oura.inter.IOrganizationService;
+import com.monkesoft.oura.service.IOrganizationService;
 import io.swagger.annotations.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

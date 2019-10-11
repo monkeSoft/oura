@@ -8,7 +8,7 @@ import com.monkesoft.oura.OURAResponse;
 import com.monkesoft.oura.entity.UserInfo;
 import com.monkesoft.oura.entity.UserOrgVO;
 import com.monkesoft.oura.entity.UserRoleVO;
-import com.monkesoft.oura.inter.IUserService;
+import com.monkesoft.oura.service.IUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

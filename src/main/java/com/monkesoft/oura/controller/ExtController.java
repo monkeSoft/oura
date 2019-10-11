@@ -3,7 +3,7 @@ package com.monkesoft.oura.controller;
 
 import com.monkesoft.oura.OURADataResponse;
 import com.monkesoft.oura.entity.ExtInfo;
-import com.monkesoft.oura.inter.IExtService;
+import com.monkesoft.oura.service.IExtService;
 import io.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

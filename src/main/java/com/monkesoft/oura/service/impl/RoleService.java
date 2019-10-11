@@ -1,8 +1,8 @@
-package com.monkesoft.oura.service;
+package com.monkesoft.oura.service.impl;
 
 import com.github.pagehelper.Page;
 import com.monkesoft.oura.entity.RoleInfo;
-import com.monkesoft.oura.inter.IRoleService;
+import com.monkesoft.oura.service.IRoleService;
 
 import java.util.List;
 

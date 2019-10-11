@@ -17,6 +17,8 @@ public interface OrganizationMapper {
 
     void deleteOrg(String orgId);
 
+    void addUsersToOrg(String orgId,String... userIds);
+
     OrganizationInfo getOrgById(String orgId);
 
     Page<OrganizationInfo> getOrgs();
