@@ -13,8 +13,8 @@ public interface UserMapper {
     void insertUser(UserInfo user);
 
     void updateUser(UserInfo user);
-    void updateUserStatus(String userId);
-
+    void updateUserStatus(String userId,int status);
+    void updateUserPassword(String userId, String password);
     void deleteUser(String userId);
 
     UserInfo getUserById(String userId);

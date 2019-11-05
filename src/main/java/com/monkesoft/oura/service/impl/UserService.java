@@ -8,6 +8,8 @@ import com.monkesoft.oura.entity.UserRoleVO;
 import com.monkesoft.oura.service.IUserService;
 import com.monkesoft.oura.mybatis.mapper.UserMapper;
 import com.monkesoft.oura.entity.UserInfo;
+import com.monkesoft.oura.util.MD5;
+import org.apache.tomcat.util.security.MD5Encoder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 
@@ -38,6 +41,11 @@ public class UserService implements IUserService {
     @Transactional
     public void insertUser(UserInfo userInfo) {
         Assert.notNull(userInfo,"用户对象不能为空");
+        String password = userInfo.getPassword();
+        if (!StringUtils.hasText(password))
+            password = userInfo.getId()+"123";
+            userInfo.setPassword(MD5.encode(password));
+
         userDao.insertUser(userInfo);
         extService.insertExt(UserInfo.EXT_GROUP,userInfo.getId(),userInfo.getExt());
     }
@@ -47,15 +55,29 @@ public class UserService implements IUserService {
     @Transactional
     public void updateUser(UserInfo userInfo) {
         Assert.notNull(userInfo,"用户对象不能为空");
+        UserInfo user = userDao.getUserById(userInfo.getId());
+        if (user == null)
+            throw new IllegalArgumentException("用户不存在");
+
         userDao.updateUser(userInfo);
         extService.updateExt(UserInfo.EXT_GROUP,userInfo.getId(),userInfo.getExt());
     }
 
     @Override
     @CacheEvict()
-    public void updateUserStatus(String userId) {
+    public void updateUserStatus(String userId,int status) {
         Assert.notNull(userId,"用户ID不能为空");
-        userDao.updateUserStatus(userId);
+        userDao.updateUserStatus(userId,status);
+    }
+
+    @Override
+    public void updateUserPassword(String userId, String password) {
+        Assert.notNull(userId,"用户ID不能为空");
+        Assert.hasText(password,"密码不能为空");
+
+        password = MD5.encode(password);
+
+        userDao.updateUserPassword(userId,password);
     }
 
     @Override

@@ -48,7 +48,7 @@ public class OrganizationService implements IOrganizationService {
 
     @Override
     @CacheEvict()
-    public void updateOrgStatus(int status, String orgId) {
+    public void updateOrgStatus(String orgId,int status) {
         Assert.hasText(orgId,"组织ID不能为空");
         orgMapper.updateOrgStatus(status,orgId);
     }
@@ -63,10 +63,18 @@ public class OrganizationService implements IOrganizationService {
     }
 
     @Override
-    public void addUsersToOrg(String orgId, String... userIds) {
-        Assert.hasText(orgId,"组织ID不能为空");
-        Assert.notNull(userIds,"人员ID列表不能为空");
+    @CacheEvict()
+    public void addUsersToOrg(List<OrgUserVO> orgUserVOList) {
+        Assert.notNull(orgUserVOList,"数据对象不能为空");
+        orgMapper.addUsersToOrg(orgUserVOList);
+    }
 
+    @Override
+    @CacheEvict()
+    public void removeUserFromOrg(String orgId, String userId) {
+        Assert.hasText(orgId,"组织ID不能为空");
+        Assert.hasText(userId,"用户ID不能为空");
+        orgMapper.removeUserFromOrg(orgId,userId);
     }
 
     @Override

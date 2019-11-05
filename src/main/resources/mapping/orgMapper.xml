@@ -17,17 +17,24 @@
     </update>
 
     <update id="updateOrgStatus">
-        update oura_organization set status=#{status} where id=#{id}
+        update oura_organization set status=#{status} where id=#{orgId}
     </update>
 
     <delete id="deleteOrg" parameterType="java.lang.String">
         delete from oura_organization where id=#{id}
     </delete>
 
-    <insert id="addUsersToOrg">
-        insert into oura_organization(id,name,parentId,level,`desc`)
-         values(#{id},#{name},#{parentId},#{level},#{desc})
+    <insert id="addUsersToOrg" parameterType="java.util.List">
+        insert into oura_org_user(orgid,userid,jobid)
+         values
+        <foreach collection="orgUserVOList" item="orgUserVO" index="index" separator=",">
+            (#{orgUserVO.id,jdbcType=VARCHAR}, #{orgUserVO.userId,jdbcType=VARCHAR}, #{orgUserVO.jobId,jdbcType=VARCHAR})
+        </foreach>
     </insert>
+
+    <delete id="removeUserFromOrg">
+        delete from oura_org_user where orgid=#{orgId} and userid=#{userId}
+    </delete>
 
     <select id="getOrgById" parameterType="java.lang.String" resultType="com.monkesoft.oura.entity.OrganizationInfo" >
         select * from oura_organization where id = #{id}
@@ -41,7 +48,7 @@
     </select>
 
     <select id="getOrgsOfUser" resultType="com.monkesoft.oura.entity.OrgUserVO" >
-        select o.*, ou.userid,ou.jobid,j.name as jobName from oura_organization o, oura_org_user ou, oura_job j where o.id=ou.orgid and ou.jobid=j.id and ou.userid= #{userId}
+        select o.*, ou.userid,ou.jobid,j.name as jobName from oura_organization o, oura_org_user ou LEFT JOIN oura_job j ON ou.jobid=j.id where o.id=ou.orgid and ou.userid= #{userId}
     </select>
 
 

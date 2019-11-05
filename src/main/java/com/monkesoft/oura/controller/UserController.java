@@ -9,6 +9,7 @@ import com.monkesoft.oura.entity.UserInfo;
 import com.monkesoft.oura.entity.UserOrgVO;
 import com.monkesoft.oura.entity.UserRoleVO;
 import com.monkesoft.oura.service.IUserService;
+import io.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "/api-rest/user")
+@Api(tags = "人员操作接口")
 public class UserController {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -76,10 +78,36 @@ public class UserController {
     }
 
     @DeleteMapping(path = {"/{userId}","/{userId}/"})
-    public OURAResponse deleteOrg(@PathVariable String userId) {
+    public OURAResponse deleteUser(@PathVariable String userId) {
         OURAResponse response = new OURAResponse();
         try {
             userService.deleteUser(userId);
+            response.success();
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            response.fail().setDesc(e.getMessage());
+        }
+        return response;
+    }
+
+    @PutMapping(path = {"/{userId}/status/{status}","/{userId}/status/{status}/"})
+    public OURAResponse updateUserStatus(@PathVariable String userId,@PathVariable int status) {
+        OURAResponse response = new OURAResponse();
+        try {
+            userService.updateUserStatus(userId,status);
+            response.success();
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            response.fail().setDesc(e.getMessage());
+        }
+        return response;
+    }
+
+    @PutMapping(path = {"/{userId}/pass/{password}","/{userId}/pass/{password}/"})
+    public OURAResponse updateUserPassword(@PathVariable String userId,@PathVariable String password) {
+        OURAResponse response = new OURAResponse();
+        try {
+            userService.updateUserPassword(userId,password);
             response.success();
         } catch (Exception e) {
             logger.error(e.getMessage(), e);

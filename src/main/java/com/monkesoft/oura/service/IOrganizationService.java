@@ -15,11 +15,13 @@ public interface IOrganizationService {
 
     public void updateOrg(OrganizationInfo orgInfo);
 
-    public void updateOrgStatus(int status, String orgId);
+    public void updateOrgStatus(String orgId,int status);
 
     public void deleteOrg(String orgId);
 
-    public void addUsersToOrg(String orgId,String... userIds);
+    public void addUsersToOrg(List<OrgUserVO> orgUserVOList);
+
+    public void removeUserFromOrg(String orgId,String userId);
 
     public OrganizationInfo getOrgById(String id);
 

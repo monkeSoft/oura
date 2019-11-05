@@ -20,7 +20,8 @@ public interface IUserService {
     public void insertUser(UserInfo userInfo);
 
     public void updateUser(UserInfo userInfo);
-    public void updateUserStatus(String userId);
+    public void updateUserStatus(String userId,int status);
+    public void updateUserPassword(String userId, String password);
 
     public void deleteUser(String userId);
 

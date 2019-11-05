@@ -89,6 +89,34 @@ public class OrganizationController {
         return response;
     }
 
+    @PostMapping(path = {"/user","/user/"})
+    @ApiOperation(value="组织中添加用户", notes="向某一个组织中批量添加人员，同时指定职务")
+    public OURAResponse addUsersToOrg(@RequestBody List<OrgUserVO> orgUserVOList) {
+        OURAResponse response = new OURAResponse();
+        try {
+            orgService.addUsersToOrg(orgUserVOList);
+            response.success();
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            response.fail().setDesc(e.getMessage());
+        }
+        return response;
+    }
+
+    @DeleteMapping(path = {"/user","/user/"})
+    @ApiOperation(value="组织中删除用户", notes="从某一个组织中删除一个指定人员")
+    public OURAResponse removeUserFromOrg(@RequestParam String orgId, @RequestParam String userId) {
+        OURAResponse response = new OURAResponse();
+        try {
+            orgService.removeUserFromOrg(orgId, userId);
+            response.success();
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            response.fail().setDesc(e.getMessage());
+        }
+        return response;
+    }
+
     /**
      * 查询单个组织的详情
      * @param orgId
@@ -156,4 +184,19 @@ public class OrganizationController {
         }
         return response;
     }
+
+    @PutMapping(path = {"/{orgId}/status/{status}","/{orgId}/status/{status}/"})
+    public OURAResponse updateOrgStatus(@PathVariable String orgId,@PathVariable int status) {
+        OURAResponse response = new OURAResponse();
+        try {
+            orgService.updateOrgStatus(orgId,status);
+            response.success();
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            response.fail().setDesc(e.getMessage());
+        }
+        return response;
+    }
+
+
 }

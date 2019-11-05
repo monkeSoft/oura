@@ -3,6 +3,7 @@ package com.monkesoft.oura.mybatis.mapper;
 import com.github.pagehelper.Page;
 import com.monkesoft.oura.entity.OrgUserVO;
 import com.monkesoft.oura.entity.OrganizationInfo;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -17,7 +18,9 @@ public interface OrganizationMapper {
 
     void deleteOrg(String orgId);
 
-    void addUsersToOrg(String orgId,String... userIds);
+    void addUsersToOrg(@Param("orgUserVOList") List<OrgUserVO> orgUserVOList);
+
+    void removeUserFromOrg(String orgId,String userId);
 
     OrganizationInfo getOrgById(String orgId);
 
