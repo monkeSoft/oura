@@ -1,0 +1,4 @@
+[submodule "testRepo"]
+	path = testRepo
+	url = https://github.com/monkeSoft/testRepo.git
+	branch = master
